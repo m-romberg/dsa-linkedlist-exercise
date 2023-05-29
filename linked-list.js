@@ -31,7 +31,6 @@ class LinkedList {
 
     this.tail = newNode;
     this.length += 1;
-
   }
 
   /** unshift(val): add new value to start of list. */
@@ -49,13 +48,11 @@ class LinkedList {
 
     this.head = newNode;
     this.length += 1;
-
   }
 
   /** pop(): return & remove last item. */
 
   pop() {
-
     let poppedNode = null;
     if (this.length === 0) {
       throw new Error("Cannot pop an empty list.");
@@ -71,55 +68,120 @@ class LinkedList {
     while (current !== null) {
       if (current.next === this.tail) {
         poppedNode = this.tail;
-        console.log("poppedNode", poppedNode);
         this.tail = current;
         current.next = null;
         this.length -= 1;
-      }
-      else {
+      } else {
         current = current.next;
       }
     }
 
     return poppedNode.val;
-
   }
 
   /** shift(): return & remove first item. */
 
   shift() {
+    let poppedNode = this.head;
 
+    if (this.length === 0) {
+      throw new Error("Cannot pop an empty list.");
+    }
+
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+      this.length -= 1;
+
+      return poppedNode.val;
+    }
+
+    this.head = this.head.next;
+    this.length -= 1;
+
+    return poppedNode.val;
   }
 
   /** getAt(idx): get val at idx. */
 
   getAt(idx) {
+    if (idx < 0 || idx >= this.length) {
+      throw new Error("Not in range.");
+    }
 
+    let count = 0;
+    let current = this.head;
+
+    while (count < idx) {
+      current = current.next;
+      count++;
+    }
+
+    return current.val;
   }
 
   /** setAt(idx, val): set val at idx to val */
 
   setAt(idx, val) {
+    if (idx < 0 || idx >= this.length) {
+      throw new Error("Not in range.");
+    }
 
+    let count = 0;
+    let current = this.head;
+
+    while (count < idx) {
+      current = current.next;
+      count++;
+    }
+
+    current.val = val;
   }
 
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
+    const newNode = new Node(val);
+    console.log("idx", idx, "val", val);
 
+    if (idx < 0 || idx > this.length) {
+      throw new Error("Not in range.");
+    }
+
+    if (this.length === 0) {
+      return this.unshift(val);
+    }
+
+    if (this.length === idx) {
+      return this.push(val);
+    }
+
+    if (idx === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+
+    let count = 0;
+    let current = this.head;
+
+    while (count < idx -1) {
+      current = current.next;
+      count++;
+    }
+
+    newNode.next = current.next;
+    current.next = newNode;
+
+    this.length += 1;
   }
 
   /** removeAt(idx): return & remove item at idx, */
 
-  removeAt(idx) {
-
-  }
+  removeAt(idx) {}
 
   /** average(): return an average of all values in the list */
 
-  average() {
-
-  }
+  average() {}
 }
 
 module.exports = LinkedList;
