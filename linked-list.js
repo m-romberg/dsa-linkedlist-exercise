@@ -177,7 +177,49 @@ class LinkedList {
 
   /** removeAt(idx): return & remove item at idx, */
 
-  removeAt(idx) {}
+  removeAt(idx) {
+
+    let poppedNode = null;
+
+    if (idx < 0 || idx >= this.length) {
+      throw new Error("Not in range.");
+    }
+
+    if (this.length === 1){
+      poppedNode = this.head;
+      this.head = null;
+      this.tail = null;
+      this.length -= 1;
+      return poppedNode.val;
+    }
+
+    if (this.length - 1 === idx){
+      return this.pop();
+    }
+
+    if (idx === 0){
+      poppedNode = this.head;
+      this.head = this.head.next;
+      this.length -= 1;
+      return poppedNode.val;
+    }
+
+    let count = 0;
+    let current = this.head;
+
+    while (count < idx - 1 ) {
+      current = current.next;
+      count++;
+    }
+
+    poppedNode = current.next;
+    current.next = current.next.next;
+
+    this.length -= 1;
+
+    return poppedNode.val;
+
+  }
 
   /** average(): return an average of all values in the list */
 
