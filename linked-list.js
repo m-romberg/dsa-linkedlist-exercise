@@ -223,7 +223,21 @@ class LinkedList {
 
   /** average(): return an average of all values in the list */
 
-  average() {}
+  average() {
+
+    let sum = 0;
+    let idx = 0;
+    let current = this.head;
+    if (current === null){
+      return sum;
+    }
+    while (idx < this.length) {
+      sum += current.val;
+      current = current.next;
+      idx++;
+    }
+    return (sum / this.length);
+  }
 }
 
 module.exports = LinkedList;
